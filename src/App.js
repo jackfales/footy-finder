@@ -4,6 +4,8 @@ import { firebaseConfig } from './firebaseConfig';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Main from './routes/Main';
 import LoginPage from "./routes/LoginPage";
+import CreateAccount from "./routes/CreateAccount";
+import FindGames from "./routes/FindGames";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +15,14 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />
+  },
+  {
+    path: "/createaccount",
+    element: <CreateAccount />
+  },
+  {
+    path: "/findgames",
+    element: <FindGames />
   }
 ]);
 
