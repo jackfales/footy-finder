@@ -3,9 +3,11 @@ import GamePreview from './GamePreview';
 const GamePreviewData = [
   {
     title: 'Game 1',
+    description: 'Description 1'
   },
   {
     title: 'Game 2',
+    description: 'Description 2'
   },
 ];
 
