@@ -1,5 +1,39 @@
-import * as firebase from 'firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import { firebaseConfig } from './firebaseConfig';
+import { initializeApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { addDoc, collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+
+// --------------------------------------------------
+// Initialize Firestore
+// --------------------------------------------------
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// --------------------------------------------------
+// Auth
+// --------------------------------------------------
+
+const googleProvider = new GoogleAuthProvider();
+export const signInWithGoogle = async () => {
+  try {
+    const res = await signInWithPopup(auth, googleProvider);
+    const user = res.user;
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: user.displayName,
+        email: user.email
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+}
 
 /**
  * Retrieves the current logged in user's information from Firestore.
@@ -8,7 +42,6 @@ import { doc, updateDoc } from 'firebase/firestore';
  */
 const getCurrentUser = () => {
   const currentUser = firebase.auth().currentUser.uid;
-  const db = firebase.firestore();
   return db.collection('users').doc(currentUser);
 };
 
