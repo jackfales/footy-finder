@@ -11,10 +11,10 @@ const GamePreviewData = [
   },
 ];
 
-export default function FindGames() {
+export default function Dashboard() {
   return (
     <div>
-      <h1>Find Games</h1>
+      <h1>Dashboard</h1>
       {GamePreviewData &&
         GamePreviewData.length > 0 &&
         GamePreviewData.map((gamePreviewData) => (
