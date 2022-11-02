@@ -48,8 +48,9 @@ export const signInWithGoogle = async () => {
  * @returns Reference to the current logged in user's information in Firestore
  */
 const getCurrentUser = () => {
-  const currentUser = firebase.auth().currentUser.uid;
-  return db.collection('users').doc(currentUser);
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
+  return currentUser;
 };
 
 // --------------------------------------------------
@@ -67,4 +68,23 @@ export async function updateUser(updateInfo) {
   const currentUser = getCurrentUser();
 
   await currentUser.updateDoc(currentUser, updateInfo);
+}
+
+// --------------------------------------------------
+// Games
+// --------------------------------------------------
+
+export const createGame = async (gameInfo) => {
+  try {
+    const newGame = await addDoc(collection(db, 'games'), {
+      game_owner: getCurrentUser().uid,
+      total_players: 1,
+      ...gameInfo
+    });
+
+    console.log("Document written with ID: ", newGame.id);
+  } catch (err) {
+    console.log(err);
+    alert(err.message);
+  }
 }
