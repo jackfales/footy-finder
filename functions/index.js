@@ -8,7 +8,8 @@ exports.createGame = functions.firestore
     .document("games/{gameId}")
     .onCreate((snap, context) => {
       const newGame = snap.data();
-      db.doc("games/{snap.id}/game_preview").set({
+      const gameId = context.params.gameId;
+      db.doc("games/" + gameId + "/game_preview/" + gameId).set({
         title: newGame.title,
         description: newGame.description,
         date_time: newGame.date_time,
