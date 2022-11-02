@@ -25,14 +25,14 @@ export default function CreateGameModal(props) {
         const gameInfo = {
             title: title,
             description: description,
-            playersPerTeam: parseInt(playersPerTeam),
+            players_per_team: parseInt(playersPerTeam),
             location: {
                 address: address,
                 city: city,
                 state: state
             },
-            dateTime: Timestamp.fromDate(dateTime),
-            skillLevel: skillLevel,
+            date_time: Timestamp.fromDate(dateTime),
+            skill_level: skillLevel,
             notes: notes
         }
         console.log(gameInfo);

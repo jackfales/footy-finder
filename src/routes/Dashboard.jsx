@@ -7,10 +7,22 @@ const GamePreviewData = [
   {
     title: 'Game 1',
     description: 'Description 1',
+    date_time: 'Oct 1, 2022 7:00PM',
+    players_per_team: 7,
+    location: {
+      city: 'San Francisco',
+      state: 'CA'
+    }
   },
   {
     title: 'Game 2',
     description: 'Description 2',
+    date_time: 'Sept 1, 2021 8:00PM',
+    players_per_team: 11,
+    location: {
+      city: 'Hayward',
+      state: 'CA'
+    }
   },
 ];
 
