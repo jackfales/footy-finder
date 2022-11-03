@@ -5,6 +5,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import {
   addDoc,
   collection,
+  collectionGroup,
   getDocs,
   getFirestore,
   query,
@@ -87,4 +88,14 @@ export const createGame = async (gameInfo) => {
     console.log(err);
     alert(err.message);
   }
+}
+
+// --------------------------------------------------
+// Game Previews
+// --------------------------------------------------
+
+export const getAllGamePreviews = async () => {
+  const gamePreviews = query(collectionGroup(db, 'game_preview'));
+  const querySnapshot = await getDocs(gamePreviews);
+  return querySnapshot.docs;
 }
