@@ -6,7 +6,7 @@ import GamePreview from './GamePreview';
 
 export default function Dashboard() {
   const [gamePreviews, setGamePreviews] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showCreateGameModal, setShowCreateGameModal] = useState(false);
 
   const fetchGamePreviews = async () => {
     const docs = await getAllGamePreviews();
@@ -17,8 +17,8 @@ export default function Dashboard() {
     })
   };
 
-  const toggleModal = () => {
-    setShowModal(!showModal);
+  const toggleCreateGameModal = () => {
+    setShowCreateGameModal(!showCreateGameModal);
   };
 
   useEffect(() => {
@@ -30,10 +30,10 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
       {gamePreviews &&
         gamePreviews.map((gamePreviewData) => (
-          <GamePreview GamePreviewData={gamePreviewData} />
+            <GamePreview GamePreviewData={gamePreviewData} />
         ))}
-      <Button onClick={toggleModal}>Create New Game</Button>
-      <CreateGameModal show={showModal} onHide={toggleModal} />
+      <Button onClick={toggleCreateGameModal}>Create New Game</Button>
+      <CreateGameModal show={showCreateGameModal} onHide={toggleCreateGameModal} />
     </div>
   );
 }

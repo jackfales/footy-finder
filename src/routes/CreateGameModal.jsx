@@ -48,6 +48,7 @@ export default function CreateGameModal(props) {
     <Modal centered show={show} backdrop="static">
       <Modal.Header>
         <Modal.Title>New Game</Modal.Title>
+        <Button onClick={onHide}>Close</Button>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
