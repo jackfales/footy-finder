@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { getGame } from '../api';
+import { getGame, signUpForGame } from '../api';
 
 export default function GameModal(props) {
   const { GamePreviewData, show, onHide } = props;
@@ -17,7 +17,7 @@ export default function GameModal(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        // TODO: Add logged in user to registered users for game
+        await signUpForGame(GamePreviewData.GamePreviewData.id);
         onHide();
     } catch (err) {
         console.log(err);

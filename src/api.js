@@ -11,6 +11,7 @@ import {
   getDocs,
   getFirestore,
   query,
+  setDoc,
   where,
 } from 'firebase/firestore';
 
@@ -96,6 +97,21 @@ export const getGame = async (gameId) => {
   const gameRef = doc(db, "games", gameId);
   const game = await getDoc(gameRef);
   return game.data();
+}
+
+export const signUpForGame = async (gameId) => {
+  const userId = getCurrentUser().uid;
+  try {
+    const registeredPlayerRef = doc(db, 'games/' + gameId + '/registered_players/', userId);
+    const newPlayer = await setDoc(registeredPlayerRef, {
+      player_id: userId,
+    });
+
+    console.log("Document written with ID: ", userId);
+  } catch (err) {
+    console.log(err);
+    alert(err.message);
+  }
 }
 
 // --------------------------------------------------
