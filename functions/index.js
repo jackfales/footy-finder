@@ -20,3 +20,13 @@ exports.createGame = functions.firestore
         },
       });
     });
+
+exports.createUser = functions.firestore
+    .document("users/{userId}")
+    .onCreate((snap, context) => {
+      const newUser = snap.data();
+      const userId = context.params.userId;
+      db.doc("users/" + userId + "/public_profile/" + userId).set({
+        name: newUser.name,
+      });
+    });
