@@ -1,5 +1,6 @@
 import { signInWithGoogle } from '../api';
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -16,12 +17,26 @@ const StyledDiv = styled.div`
   justify-content: center;
 `;
 
+
+
 export default function LoginPage() {
+
+  const navigate = useNavigate();
+
+  const signInAndRedirect = async () => {
+    try {
+      await signInWithGoogle();
+      navigate("/dashboard");
+    } catch (err) {
+      console.log("Error signing in");
+    }
+  }
+
   return (
     <StyledContainer>
       <StyledDiv>
         <h1>Login</h1>
-        <Button variant="primary" onClick={signInWithGoogle}>
+        <Button variant="primary" onClick={signInAndRedirect}>
           Sign In With Google
         </Button>
       </StyledDiv>
