@@ -30,3 +30,13 @@ exports.createUser = functions.firestore
         name: newUser.name,
       });
     });
+
+exports.createRegisteredPlayer = functions.firestore
+    .document("games/{gameId}/registered_players/{userId}")
+    .onCreate((snap, context) => {
+      const userId = context.params.userId;
+      const gameId = context.params.gameId;
+      db.doc("users/" + userId + "/registered_games/" + gameId).set({
+        game_id: gameId,
+      });
+    });

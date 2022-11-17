@@ -34,7 +34,7 @@ export const signInWithGoogle = async () => {
     const q = query(collection(db, 'users'), where('uid', '==', user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, 'users'), {
+      await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         name: user.displayName,
         email: user.email,
@@ -103,7 +103,7 @@ export const signUpForGame = async (gameId) => {
   const userId = getCurrentUser().uid;
   try {
     const registeredPlayerRef = doc(db, 'games/' + gameId + '/registered_players/', userId);
-    const newPlayer = await setDoc(registeredPlayerRef, {
+    await setDoc(registeredPlayerRef, {
       player_id: userId,
     });
 
