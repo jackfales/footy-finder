@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { getGame } from '../api';
 
 export default function GameModal(props) {
   const { GamePreviewData, show, onHide } = props;
@@ -24,6 +25,17 @@ export default function GameModal(props) {
     }
   };
 
+  const fetchGame = async () => {
+    const game = await getGame(GamePreviewData.GamePreviewData.id);
+    setAddress(game.location.address);
+    setSkillLevel(game.skill_level);
+    setNotes(game.notes);
+  }
+
+  useEffect(() => {
+    fetchGame();
+  }, [show]);
+
   return (
     <Modal centered show={show}>
       <Modal.Header>
@@ -32,7 +44,12 @@ export default function GameModal(props) {
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
-            <p>{description}</p>
+            <p>Description: {description}</p>
+            <p>Match Type: {playersPerTeam}v{playersPerTeam}</p>
+            <p>Location: {address}, {city}, {state}</p>
+            <p>Date/Time: {dateTime}</p>
+            <p>Skill Level: {skillLevel}</p>
+            <p>Notes: {notes}</p>
         </Modal.Body>
         <Modal.Footer>
             <Button type="submit">Sign Up</Button>

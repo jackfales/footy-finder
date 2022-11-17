@@ -6,6 +6,8 @@ import {
   addDoc,
   collection,
   collectionGroup,
+  doc,
+  getDoc,
   getDocs,
   getFirestore,
   query,
@@ -88,6 +90,12 @@ export const createGame = async (gameInfo) => {
     console.log(err);
     alert(err.message);
   }
+}
+
+export const getGame = async (gameId) => {
+  const gameRef = doc(db, "games", gameId);
+  const game = await getDoc(gameRef);
+  return game.data();
 }
 
 // --------------------------------------------------

@@ -12,6 +12,7 @@ export default function Dashboard() {
     const docs = await getAllGamePreviews();
     docs.forEach(doc => {
       const data = doc.data();
+      data.id = doc.id;
       data.date_time = data.date_time.toDate().toString();
       setGamePreviews([...gamePreviews, data]);
     })
